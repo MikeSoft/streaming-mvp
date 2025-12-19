@@ -1,1 +1,0 @@
-{"StartTimeUtc":"2025-12-17T20:28:47.0740867Z","EndTimeUtc":"2025-12-17T20:28:47.0815159Z","Status":"Completed","Name":"Limpiar directorio de registros","Key":"CleanLogFiles","Id":"1c8ede62c521bea0bf851344f5b8ca40"}
