@@ -23,7 +23,8 @@ services:
 
   # 2. ErsatzTV - Programación de canales "Live"
   ersatztv:
-    image: jasongdove/ersatztv:latest-nvidia
+    # Cambiamos de :latest-nvidia a :latest
+    image: jasongdove/ersatztv:latest
     container_name: ersatztv
     networks:
       - tv-network
@@ -31,7 +32,7 @@ services:
       - "8409:8409"
     volumes:
       - ./config/ersatztv:/config
-      - ./media:/media:ro # ErsatzTV necesita ver los archivos para generar el streaming
+      - ./media:/media:ro
     environment:
       - TZ=America/Bogota
     restart: unless-stopped
