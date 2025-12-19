@@ -1,0 +1,373 @@
+{"Protocol":1,"Id":"38f9ceb6e3de02c241dd2abcd8e41ded","Path":"http://201.230.121.186:8000/play/a0fb/index.m3u8","EncoderPath":null,"EncoderProtocol":null,"Type":0,"Container":"hls","Size":135,"Name":null,"IsRemote":true,"ETag":null,"RunTimeTicks":null,"ReadAtNativeFramerate":true,"IgnoreDts":true,"IgnoreIndex":false,"GenPtsInput":false,"SupportsTranscoding":true,"SupportsDirectStream":false,"SupportsDirectPlay":true,"IsInfiniteStream":true,"UseMostCompatibleTranscodingProfile":true,"RequiresOpening":true,"OpenToken":null,"RequiresClosing":true,"LiveStreamId":"e2329f4997b378e64ccf8fa396deb76e_af999c25a00715699361240d4c6c7a53_38f9ceb6e3de02c241dd2abcd8e41ded","BufferMs":null,"RequiresLooping":false,"SupportsProbing":true,"VideoType":null,"IsoType":null,"Video3DFormat":null,"MediaStreams":[{"Codec":"mpeg2video","CodecTag":null,"Language":null,"ColorRange":"tv","ColorSpace":null,"ColorTransfer":null,"ColorPrimaries":null,"DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":"1/90000","CodecTimeBase":null,"Title":null,"Hdr10PlusPresentFlag":null,"VideoRange":1,"VideoRangeType":1,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":null,"LocalizedDefault":null,"LocalizedForced":null,"LocalizedExternal":null,"LocalizedHearingImpaired":null,"DisplayTitle":"480p MPEG2VIDEO SDR","NalLengthSize":null,"IsInterlaced":false,"IsAVC":null,"ChannelLayout":null,"BitRate":2000000,"BitDepth":8,"RefFrames":1,"PacketLength":null,"Channels":null,"SampleRate":null,"IsDefault":false,"IsForced":false,"IsHearingImpaired":false,"Height":480,"Width":720,"AverageFrameRate":29.97003,"RealFrameRate":29.97003,"ReferenceFrameRate":29.97003,"Profile":"Main","Type":1,"AspectRatio":"16:9","Index":-1,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":"yuv420p","Level":8,"IsAnamorphic":true},{"Codec":"mp2","CodecTag":null,"Language":null,"ColorRange":null,"ColorSpace":null,"ColorTransfer":null,"ColorPrimaries":null,"DvVersionMajor":null,"DvVersionMinor":null,"DvProfile":null,"DvLevel":null,"RpuPresentFlag":null,"ElPresentFlag":null,"BlPresentFlag":null,"DvBlSignalCompatibilityId":null,"Rotation":null,"Comment":null,"TimeBase":"1/90000","CodecTimeBase":null,"Title":null,"Hdr10PlusPresentFlag":null,"VideoRange":0,"VideoRangeType":0,"VideoDoViTitle":null,"AudioSpatialFormat":0,"LocalizedUndefined":null,"LocalizedDefault":"Por defecto","LocalizedForced":null,"LocalizedExternal":"Externo","LocalizedHearingImpaired":null,"DisplayTitle":"MP2 - Stereo","NalLengthSize":null,"IsInterlaced":false,"IsAVC":false,"ChannelLayout":"stereo","BitRate":128000,"BitDepth":null,"RefFrames":null,"PacketLength":null,"Channels":2,"SampleRate":48000,"IsDefault":false,"IsForced":false,"IsHearingImpaired":false,"Height":null,"Width":null,"AverageFrameRate":null,"RealFrameRate":null,"ReferenceFrameRate":null,"Profile":null,"Type":0,"AspectRatio":null,"Index":-1,"Score":null,"IsExternal":false,"DeliveryMethod":null,"DeliveryUrl":null,"IsExternalUrl":null,"IsTextSubtitleStream":false,"SupportsExternalStream":false,"Path":null,"PixelFormat":null,"Level":0,"IsAnamorphic":null}],"MediaAttachments":[],"Formats":[],"Bitrate":2128000,"FallbackMaxStreamingBitrate":30000000,"Timestamp":null,"RequiredHttpHeaders":{"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"},"TranscodingUrl":null,"TranscodingSubProtocol":0,"TranscodingContainer":null,"AnalyzeDurationMs":3000,"DefaultAudioStreamIndex":null,"DefaultSubtitleStreamIndex":null,"HasSegments":false}
+
+/usr/lib/jellyfin-ffmpeg/ffmpeg -analyzeduration 3000000 -probesize 1G -user_agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" -re -fflags +igndts  -i "http://201.230.121.186:8000/play/a0fb/index.m3u8" -map_metadata -1 -map_chapters -1 -threads 0 -sn -codec:v:0 libx264 -preset superfast -crf 23 -maxrate 5000000 -bufsize 10000000 -profile:v:0 high -level 51 -x264opts:0 subme=0:me_range=16:rc_lookahead=10:me=hex:open_gop=0 -force_key_frames:0 "expr:gte(t,n_forced*3)" -sc_threshold:v:0 0 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,scale=trunc(min(max(iw\,ih*a)\,min(720\,480*a))/2)*2:trunc(min(max(iw/a\,ih)\,min(720/a\,480))/2)*2,format=yuv420p" -flags -global_header -codec:a:0 libfdk_aac -ac 2 -ab 256000 -copyts -avoid_negative_ts disabled -max_muxing_queue_size 2048 -f hls -max_delay 5000000 -hls_time 3 -hls_segment_type mpegts -start_number 0 -hls_base_url "hls/293604aba2821610fedf9381e9d7de27/" -hls_segment_filename "/cache/transcodes/293604aba2821610fedf9381e9d7de27%d.ts" -hls_playlist_type event -hls_list_size 0 -y "/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8"
+
+
+ffmpeg version 7.1.3-Jellyfin Copyright (c) 2000-2025 the FFmpeg developers
+  built with gcc 14 (Debian 14.2.0-19)
+  configuration: --prefix=/usr/lib/jellyfin-ffmpeg --target-os=linux --extra-version=Jellyfin --disable-doc --disable-ffplay --disable-static --disable-libxcb --disable-sdl2 --disable-xlib --enable-lto=auto --enable-gpl --enable-version3 --enable-shared --enable-gmp --enable-gnutls --enable-chromaprint --enable-opencl --enable-libdrm --enable-libxml2 --enable-libass --enable-libfreetype --enable-libfribidi --enable-libfontconfig --enable-libharfbuzz --enable-libbluray --enable-libmp3lame --enable-libopus --enable-libtheora --enable-libvorbis --enable-libopenmpt --enable-libdav1d --enable-libsvtav1 --enable-libwebp --enable-libvpx --enable-libx264 --enable-libx265 --enable-libzvbi --enable-libzimg --enable-libfdk-aac --arch=amd64 --enable-libshaderc --enable-libplacebo --enable-vulkan --enable-vaapi --enable-amf --enable-libvpl --enable-ffnvcodec --enable-cuda --enable-cuda-llvm --enable-cuvid --enable-nvdec --enable-nvenc
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176252_71bb.ts' for reading
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176255_624b.ts' for reading
+[mpeg2video @ 0x7cf6b3377880] Invalid frame dimensions 0x0.
+[hls @ 0x7cf6b32b4000] DTS 179152230 < 179158236 out of order
+[mpeg2video @ 0x7cf6b3377880] Invalid frame dimensions 0x0.
+    Last message repeated 3 times
+[mp3float @ 0x7cf6b3377c00] This AVCodecContext was allocated for mp3float, but mp2 passed to avcodec_open2()
+[mpeg2video @ 0x7cf6b3377880] Invalid frame dimensions 0x0.
+    Last message repeated 12 times
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176258_0512.ts' for reading
+[hls @ 0x7cf6b32b4000] Could not find codec parameters for stream 0 (Audio: mp2 (mp3float) ([3][0][0][0] / 0x0003), 48000 Hz, stereo, 128 kb/s): unspecified frame size
+Consider increasing the value for the 'analyzeduration' (3000000) and 'probesize' (1000000000) options
+Input #0, hls, from 'http://201.230.121.186:8000/play/a0fb/index.m3u8':
+  Duration: N/A, start: 1990.131667, bitrate: N/A
+  Program 0 
+    Metadata:
+      variant_bitrate : 2038000
+  Stream #0:0(spa): Audio: mp2 (mp3float) ([3][0][0][0] / 0x0003), 48000 Hz, stereo, 128 kb/s
+      Metadata:
+        variant_bitrate : 2038000
+  Stream #0:1: Video: mpeg2video (Main) ([2][0][0][0] / 0x0002), yuv420p(tv), 720x480 [SAR 32:27 DAR 16:9], 29.97 fps, 29.97 tbr, 90k tbn
+      Metadata:
+        variant_bitrate : 2038000
+      Side data:
+        cpb: bitrate max/min/avg: 15000000/0/0 buffer size: 1835008 vbv_delay: N/A
+Stream mapping:
+  Stream #0:1 -> #0:0 (mpeg2video (native) -> h264 (libx264))
+  Stream #0:0 -> #0:1 (mp2 (native) -> aac (libfdk_aac))
+Press [q] to stop, [?] for help
+[libx264 @ 0x7cf6b3377f80] using SAR=32/27
+[libx264 @ 0x7cf6b3377f80] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x7cf6b3377f80] profile High, level 5.1, 4:2:0, 8-bit
+[libx264 @ 0x7cf6b3377f80] 264 - core 164 r3108 31e19f9 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:0:0 analyse=0x3:0x3 me=hex subme=0 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=15 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=0 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=0 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 vbv_maxrate=5000 vbv_bufsize=10000 crf_max=0.0 nal_hrd=none filler=0 ip_ratio=1.40 pb_ratio=1.30 aq=1:1.00
+Output #0, hls, to '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: h264, yuv420p(tv, bt709, top coded first (swapped)), 720x480 [SAR 32:27 DAR 16:9], q=2-31, 29.97 fps, 90k tbn
+      Metadata:
+        encoder         : Lavc61.19.101 libx264
+      Side data:
+        cpb: bitrate max/min/avg: 5000000/0/0 buffer size: 10000000 vbv_delay: N/A
+  Stream #0:1: Audio: aac, 48000 Hz, stereo, s16, 256 kb/s
+      Metadata:
+        encoder         : Lavc61.19.101 libfdk_aac
+      Side data:
+        cpb: bitrate max/min/avg: 256000/256000/256000 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=N/A time=N/A bitrate=N/A speed=N/A    
+frame=    0 fps=0.0 q=0.0 size=N/A time=N/A bitrate=N/A speed=N/A    
+frame=   14 fps=9.3 q=26.0 size=N/A time=00:00:00.00 bitrate=N/A speed=   0x    
+frame=   29 fps= 14 q=25.0 size=N/A time=00:00:00.50 bitrate=N/A speed=0.25x    
+frame=   44 fps= 18 q=27.0 size=N/A time=00:00:01.00 bitrate=N/A speed= 0.4x    
+frame=   59 fps= 20 q=27.0 size=N/A time=00:00:01.50 bitrate=N/A speed= 0.5x    
+frame=   71 fps= 20 q=27.0 size=N/A time=00:00:01.90 bitrate=N/A speed=0.543x    
+frame=   89 fps= 22 q=25.0 size=N/A time=00:00:02.50 bitrate=N/A speed=0.625x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de270.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  104 fps= 23 q=26.0 size=N/A time=00:00:03.00 bitrate=N/A speed=0.667x    
+frame=  119 fps= 24 q=26.0 size=N/A time=00:00:03.50 bitrate=N/A speed=0.701x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176261_0dd1.ts' for reading
+frame=  124 fps= 23 q=26.0 size=N/A time=00:00:03.67 bitrate=N/A speed=0.667x    
+frame=  149 fps= 25 q=25.0 size=N/A time=00:00:04.50 bitrate=N/A speed=0.751x    
+frame=  164 fps= 25 q=26.0 size=N/A time=00:00:05.00 bitrate=N/A speed=0.77x    
+frame=  179 fps= 26 q=26.0 size=N/A time=00:00:05.50 bitrate=N/A speed=0.786x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de271.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  194 fps= 26 q=24.0 size=N/A time=00:00:06.00 bitrate=N/A speed=0.801x    
+frame=  209 fps= 26 q=23.0 size=N/A time=00:00:06.50 bitrate=N/A speed=0.813x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176264_1f0e.ts' for reading
+frame=  220 fps= 26 q=23.0 size=N/A time=00:00:06.87 bitrate=N/A speed=0.808x    
+frame=  239 fps= 27 q=27.0 size=N/A time=00:00:07.50 bitrate=N/A speed=0.834x    
+frame=  254 fps= 27 q=24.0 size=N/A time=00:00:08.00 bitrate=N/A speed=0.843x    
+frame=  269 fps= 27 q=24.0 size=N/A time=00:00:08.50 bitrate=N/A speed=0.851x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de272.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  284 fps= 27 q=24.0 size=N/A time=00:00:09.00 bitrate=N/A speed=0.858x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+frame=  298 fps= 27 q=25.0 size=N/A time=00:00:09.47 bitrate=N/A speed=0.861x    
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176267_ae04.ts' for reading
+frame=  314 fps= 27 q=24.0 size=N/A time=00:00:10.01 bitrate=N/A speed=0.87x    
+frame=  329 fps= 27 q=25.0 size=N/A time=00:00:10.51 bitrate=N/A speed=0.876x    
+frame=  344 fps= 28 q=23.0 size=N/A time=00:00:11.01 bitrate=N/A speed=0.881x    
+frame=  359 fps= 28 q=26.0 size=N/A time=00:00:11.51 bitrate=N/A speed=0.885x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de273.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  374 fps= 28 q=26.0 size=N/A time=00:00:12.01 bitrate=N/A speed=0.89x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176269_9940.ts' for reading
+frame=  385 fps= 27 q=25.0 size=N/A time=00:00:12.37 bitrate=N/A speed=0.884x    
+frame=  404 fps= 28 q=28.0 size=N/A time=00:00:13.01 bitrate=N/A speed=0.897x    
+frame=  419 fps= 28 q=28.0 size=N/A time=00:00:13.51 bitrate=N/A speed=0.901x    
+frame=  434 fps= 28 q=27.0 size=N/A time=00:00:14.01 bitrate=N/A speed=0.904x    
+frame=  448 fps= 28 q=28.0 size=N/A time=00:00:14.48 bitrate=N/A speed=0.905x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de274.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  463 fps= 28 q=29.0 size=N/A time=00:00:14.98 bitrate=N/A speed=0.908x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+frame=  472 fps= 28 q=29.0 size=N/A time=00:00:15.28 bitrate=N/A speed=0.899x    
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176272_48bd.ts' for reading
+frame=  494 fps= 28 q=27.0 size=N/A time=00:00:16.01 bitrate=N/A speed=0.915x    
+frame=  509 fps= 28 q=25.0 size=N/A time=00:00:16.51 bitrate=N/A speed=0.917x    
+frame=  524 fps= 28 q=27.0 size=N/A time=00:00:17.01 bitrate=N/A speed=0.92x    
+frame=  539 fps= 28 q=26.0 size=N/A time=00:00:17.51 bitrate=N/A speed=0.922x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de275.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  554 fps= 28 q=23.0 size=N/A time=00:00:18.01 bitrate=N/A speed=0.924x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176275_a807.ts' for reading
+frame=  569 fps= 28 q=26.0 size=N/A time=00:00:18.51 bitrate=N/A speed=0.926x    
+frame=  584 fps= 28 q=26.0 size=N/A time=00:00:19.01 bitrate=N/A speed=0.928x    
+frame=  599 fps= 29 q=25.0 size=N/A time=00:00:19.51 bitrate=N/A speed=0.929x    
+frame=  614 fps= 29 q=23.0 size=N/A time=00:00:20.02 bitrate=N/A speed=0.931x    
+frame=  629 fps= 29 q=26.0 size=N/A time=00:00:20.52 bitrate=N/A speed=0.933x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de276.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  644 fps= 29 q=25.0 size=N/A time=00:00:21.02 bitrate=N/A speed=0.934x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176278_9f86.ts' for reading
+frame=  646 fps= 28 q=24.0 size=N/A time=00:00:21.08 bitrate=N/A speed=0.917x    
+frame=  674 fps= 29 q=26.0 size=N/A time=00:00:22.02 bitrate=N/A speed=0.937x    
+frame=  689 fps= 29 q=26.0 size=N/A time=00:00:22.52 bitrate=N/A speed=0.938x    
+frame=  701 fps= 29 q=27.0 size=N/A time=00:00:22.92 bitrate=N/A speed=0.935x    
+frame=  719 fps= 29 q=26.0 size=N/A time=00:00:23.52 bitrate=N/A speed=0.941x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de277.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  731 fps= 29 q=26.0 size=N/A time=00:00:23.92 bitrate=N/A speed=0.938x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176281_df25.ts' for reading
+frame=  749 fps= 29 q=28.0 size=N/A time=00:00:24.52 bitrate=N/A speed=0.943x    
+frame=  760 fps= 29 q=29.0 size=N/A time=00:00:24.89 bitrate=N/A speed=0.939x    
+frame=  777 fps= 29 q=28.0 size=N/A time=00:00:25.45 bitrate=N/A speed=0.943x    
+frame=  790 fps= 29 q=26.0 size=N/A time=00:00:25.89 bitrate=N/A speed=0.941x    
+frame=  806 fps= 29 q=27.0 size=N/A time=00:00:26.42 bitrate=N/A speed=0.944x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de278.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame=  820 fps= 29 q=29.0 size=N/A time=00:00:26.89 bitrate=N/A speed=0.943x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176284_c598.ts' for reading
+frame=  839 fps= 29 q=29.0 size=N/A time=00:00:27.52 bitrate=N/A speed=0.949x    
+frame=  850 fps= 29 q=28.0 size=N/A time=00:00:27.89 bitrate=N/A speed=0.945x    
+frame=  867 fps= 29 q=28.0 size=N/A time=00:00:28.46 bitrate=N/A speed=0.948x    
+frame=  881 fps= 29 q=28.0 size=N/A time=00:00:28.92 bitrate=N/A speed=0.948x    
+frame=  896 fps= 29 q=26.0 size=N/A time=00:00:29.42 bitrate=N/A speed=0.949x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de279.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176287_8f0f.ts' for reading
+frame=  907 fps= 29 q=28.0 size=N/A time=00:00:29.79 bitrate=N/A speed=0.946x    
+frame=  926 fps= 29 q=28.0 size=N/A time=00:00:30.43 bitrate=N/A speed=0.951x    
+frame=  944 fps= 29 q=27.0 size=N/A time=00:00:31.03 bitrate=N/A speed=0.955x    
+frame=  959 fps= 29 q=27.0 size=N/A time=00:00:31.53 bitrate=N/A speed=0.955x    
+frame=  974 fps= 29 q=27.0 size=N/A time=00:00:32.03 bitrate=N/A speed=0.956x    
+frame=  987 fps= 29 q=26.0 size=N/A time=00:00:32.46 bitrate=N/A speed=0.955x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2710.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+frame=  994 fps= 29 q=28.0 size=N/A time=00:00:32.69 bitrate=N/A speed=0.948x    
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176290_597a.ts' for reading
+frame= 1016 fps= 29 q=27.0 size=N/A time=00:00:33.43 bitrate=N/A speed=0.955x    
+frame= 1031 fps= 29 q=27.0 size=N/A time=00:00:33.93 bitrate=N/A speed=0.956x    
+frame= 1046 fps= 29 q=27.0 size=N/A time=00:00:34.43 bitrate=N/A speed=0.956x    
+frame= 1064 fps= 29 q=28.0 size=N/A time=00:00:35.03 bitrate=N/A speed=0.96x    
+frame= 1077 fps= 29 q=28.0 size=N/A time=00:00:35.46 bitrate=N/A speed=0.958x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176293_64ae.ts' for reading
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2711.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1094 fps= 29 q=29.0 size=N/A time=00:00:36.03 bitrate=N/A speed=0.961x    
+frame= 1108 fps= 29 q=28.0 size=N/A time=00:00:36.50 bitrate=N/A speed=0.96x    
+frame= 1124 fps= 29 q=28.0 size=N/A time=00:00:37.03 bitrate=N/A speed=0.962x    
+frame= 1139 fps= 29 q=27.0 size=N/A time=00:00:37.53 bitrate=N/A speed=0.962x    
+frame= 1154 fps= 29 q=27.0 size=N/A time=00:00:38.03 bitrate=N/A speed=0.963x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+frame= 1168 fps= 29 q=28.0 size=N/A time=00:00:38.50 bitrate=N/A speed=0.962x    
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176295_bf65.ts' for reading
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2712.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1181 fps= 29 q=25.0 size=N/A time=00:00:38.93 bitrate=N/A speed=0.961x    
+frame= 1195 fps= 29 q=27.0 size=N/A time=00:00:39.40 bitrate=N/A speed=0.961x    
+frame= 1208 fps= 29 q=27.0 size=N/A time=00:00:39.83 bitrate=N/A speed=0.96x    
+frame= 1229 fps= 29 q=23.0 size=N/A time=00:00:40.54 bitrate=N/A speed=0.965x    
+frame= 1244 fps= 29 q=25.0 size=N/A time=00:00:41.04 bitrate=N/A speed=0.965x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176298_6473.ts' for reading
+frame= 1255 fps= 29 q=23.0 size=N/A time=00:00:41.40 bitrate=N/A speed=0.963x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2713.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1273 fps= 29 q=24.0 size=N/A time=00:00:42.00 bitrate=N/A speed=0.965x    
+frame= 1288 fps= 29 q=23.0 size=N/A time=00:00:42.50 bitrate=N/A speed=0.966x    
+frame= 1303 fps= 29 q=25.0 size=N/A time=00:00:43.00 bitrate=N/A speed=0.966x    
+frame= 1318 fps= 29 q=24.0 size=N/A time=00:00:43.51 bitrate=N/A speed=0.967x    
+frame= 1333 fps= 29 q=24.0 size=N/A time=00:00:44.01 bitrate=N/A speed=0.967x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176301_7a33.ts' for reading
+frame= 1342 fps= 29 q=27.0 size=N/A time=00:00:44.31 bitrate=N/A speed=0.963x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2714.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1363 fps= 29 q=26.0 size=N/A time=00:00:45.01 bitrate=N/A speed=0.968x    
+frame= 1378 fps= 29 q=24.0 size=N/A time=00:00:45.51 bitrate=N/A speed=0.968x    
+frame= 1393 fps= 29 q=25.0 size=N/A time=00:00:46.01 bitrate=N/A speed=0.968x    
+frame= 1408 fps= 29 q=27.0 size=N/A time=00:00:46.51 bitrate=N/A speed=0.969x    
+frame= 1423 fps= 29 q=28.0 size=N/A time=00:00:47.01 bitrate=N/A speed=0.969x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176304_6e8b.ts' for reading
+frame= 1437 fps= 29 q=27.0 size=N/A time=00:00:47.48 bitrate=N/A speed=0.969x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2715.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1453 fps= 29 q=27.0 size=N/A time=00:00:48.01 bitrate=N/A speed=0.97x    
+frame= 1465 fps= 29 q=27.0 size=N/A time=00:00:48.41 bitrate=N/A speed=0.968x    
+frame= 1483 fps= 29 q=25.0 size=N/A time=00:00:49.01 bitrate=N/A speed=0.97x    
+frame= 1498 fps= 29 q=24.0 size=N/A time=00:00:49.51 bitrate=N/A speed=0.971x    
+frame= 1513 fps= 29 q=23.0 size=N/A time=00:00:50.01 bitrate=N/A speed=0.971x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176307_f72f.ts' for reading
+frame= 1528 fps= 29 q=24.0 size=N/A time=00:00:50.51 bitrate=N/A speed=0.971x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2716.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1543 fps= 29 q=26.0 size=N/A time=00:00:51.01 bitrate=N/A speed=0.972x    
+frame= 1558 fps= 29 q=25.0 size=N/A time=00:00:51.51 bitrate=N/A speed=0.972x    
+frame= 1573 fps= 29 q=25.0 size=N/A time=00:00:52.01 bitrate=N/A speed=0.972x    
+frame= 1588 fps= 29 q=25.0 size=N/A time=00:00:52.51 bitrate=N/A speed=0.972x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176310_e80e.ts' for reading
+frame= 1603 fps= 29 q=21.0 size=N/A time=00:00:53.01 bitrate=N/A speed=0.973x    
+frame= 1618 fps= 29 q=25.0 size=N/A time=00:00:53.52 bitrate=N/A speed=0.973x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2717.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1633 fps= 29 q=25.0 size=N/A time=00:00:54.02 bitrate=N/A speed=0.973x    
+frame= 1648 fps= 29 q=24.0 size=N/A time=00:00:54.52 bitrate=N/A speed=0.973x    
+frame= 1663 fps= 29 q=25.0 size=N/A time=00:00:55.02 bitrate=N/A speed=0.974x    
+frame= 1678 fps= 29 q=27.0 size=N/A time=00:00:55.52 bitrate=N/A speed=0.974x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+frame= 1690 fps= 29 q=27.0 size=N/A time=00:00:55.92 bitrate=N/A speed=0.972x    
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176313_e79c.ts' for reading
+frame= 1708 fps= 29 q=28.0 size=N/A time=00:00:56.52 bitrate=N/A speed=0.974x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2718.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1721 fps= 29 q=25.0 size=N/A time=00:00:56.95 bitrate=N/A speed=0.973x    
+frame= 1738 fps= 29 q=26.0 size=N/A time=00:00:57.52 bitrate=N/A speed=0.975x    
+frame= 1753 fps= 29 q=24.0 size=N/A time=00:00:58.02 bitrate=N/A speed=0.975x    
+frame= 1768 fps= 29 q=26.0 size=N/A time=00:00:58.52 bitrate=N/A speed=0.975x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176316_348c.ts' for reading
+frame= 1777 fps= 29 q=24.0 size=N/A time=00:00:58.82 bitrate=N/A speed=0.972x    
+frame= 1798 fps= 29 q=26.0 size=N/A time=00:00:59.52 bitrate=N/A speed=0.976x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2719.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1813 fps= 29 q=27.0 size=N/A time=00:01:00.02 bitrate=N/A speed=0.976x    
+frame= 1828 fps= 29 q=25.0 size=N/A time=00:01:00.52 bitrate=N/A speed=0.976x    
+frame= 1843 fps= 29 q=25.0 size=N/A time=00:01:01.02 bitrate=N/A speed=0.976x    
+frame= 1858 fps= 29 q=24.0 size=N/A time=00:01:01.52 bitrate=N/A speed=0.976x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176319_f003.ts' for reading
+frame= 1864 fps= 29 q=25.0 size=N/A time=00:01:01.72 bitrate=N/A speed=0.972x    
+frame= 1888 fps= 29 q=23.0 size=N/A time=00:01:02.52 bitrate=N/A speed=0.977x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2720.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1903 fps= 29 q=23.0 size=N/A time=00:01:03.02 bitrate=N/A speed=0.977x    
+frame= 1918 fps= 29 q=25.0 size=N/A time=00:01:03.53 bitrate=N/A speed=0.977x    
+frame= 1933 fps= 30 q=25.0 size=N/A time=00:01:04.03 bitrate=N/A speed=0.977x    
+frame= 1948 fps= 30 q=25.0 size=N/A time=00:01:04.53 bitrate=N/A speed=0.977x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176322_3e53.ts' for reading
+frame= 1963 fps= 30 q=20.0 size=N/A time=00:01:05.03 bitrate=N/A speed=0.978x    
+frame= 1978 fps= 30 q=24.0 size=N/A time=00:01:05.53 bitrate=N/A speed=0.978x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2721.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 1991 fps= 29 q=20.0 size=N/A time=00:01:05.96 bitrate=N/A speed=0.977x    
+frame= 2008 fps= 30 q=26.0 size=N/A time=00:01:06.53 bitrate=N/A speed=0.978x    
+frame= 2023 fps= 30 q=25.0 size=N/A time=00:01:07.03 bitrate=N/A speed=0.978x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+frame= 2038 fps= 30 q=27.0 size=N/A time=00:01:07.53 bitrate=N/A speed=0.978x    
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176325_6a39.ts' for reading
+frame= 2053 fps= 30 q=27.0 size=N/A time=00:01:08.03 bitrate=N/A speed=0.979x    
+frame= 2066 fps= 30 q=28.0 size=N/A time=00:01:08.46 bitrate=N/A speed=0.978x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2722.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 2083 fps= 30 q=28.0 size=N/A time=00:01:09.03 bitrate=N/A speed=0.979x    
+frame= 2096 fps= 30 q=26.0 size=N/A time=00:01:09.46 bitrate=N/A speed=0.978x    
+frame= 2111 fps= 30 q=28.0 size=N/A time=00:01:09.96 bitrate=N/A speed=0.978x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176327_9d56.ts' for reading
+frame= 2125 fps= 30 q=26.0 size=N/A time=00:01:10.43 bitrate=N/A speed=0.978x    
+frame= 2143 fps= 30 q=24.0 size=N/A time=00:01:11.03 bitrate=N/A speed=0.98x    
+frame= 2158 fps= 30 q=24.0 size=N/A time=00:01:11.53 bitrate=N/A speed=0.98x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2723.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 2173 fps= 30 q=25.0 size=N/A time=00:01:12.03 bitrate=N/A speed=0.98x    
+frame= 2188 fps= 30 q=25.0 size=N/A time=00:01:12.53 bitrate=N/A speed=0.98x    
+frame= 2203 fps= 30 q=24.0 size=N/A time=00:01:13.03 bitrate=N/A speed=0.98x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176330_f1ef.ts' for reading
+frame= 2212 fps= 29 q=26.0 size=N/A time=00:01:13.33 bitrate=N/A speed=0.978x    
+frame= 2233 fps= 30 q=24.0 size=N/A time=00:01:14.04 bitrate=N/A speed=0.98x    
+frame= 2248 fps= 30 q=24.0 size=N/A time=00:01:14.54 bitrate=N/A speed=0.981x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2724.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 2263 fps= 30 q=26.0 size=N/A time=00:01:15.04 bitrate=N/A speed=0.981x    
+frame= 2278 fps= 30 q=25.0 size=N/A time=00:01:15.54 bitrate=N/A speed=0.981x    
+frame= 2293 fps= 30 q=23.0 size=N/A time=00:01:16.04 bitrate=N/A speed=0.981x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176333_941a.ts' for reading
+frame= 2308 fps= 30 q=26.0 size=N/A time=00:01:16.54 bitrate=N/A speed=0.981x    
+frame= 2321 fps= 30 q=22.0 size=N/A time=00:01:16.97 bitrate=N/A speed=0.98x    
+frame= 2338 fps= 30 q=25.0 size=N/A time=00:01:17.54 bitrate=N/A speed=0.981x    
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2725.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+frame= 2353 fps= 30 q=25.0 size=N/A time=00:01:18.04 bitrate=N/A speed=0.981x    
+frame= 2368 fps= 30 q=25.0 size=N/A time=00:01:18.54 bitrate=N/A speed=0.982x    
+frame= 2383 fps= 30 q=25.0 size=N/A time=00:01:19.04 bitrate=N/A speed=0.982x    
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+frame= 2386 fps= 29 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.977x    
+frame= 2386 fps= 29 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.971x    
+frame= 2386 fps= 29 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.965x    
+frame= 2386 fps= 29 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.959x    
+frame= 2386 fps= 29 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.953x    
+frame= 2386 fps= 29 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.948x    
+frame= 2386 fps= 28 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.942x    
+frame= 2386 fps= 28 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.936x    
+frame= 2386 fps= 28 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.931x    
+frame= 2386 fps= 28 q=24.0 size=N/A time=00:01:19.14 bitrate=N/A speed=0.925x    
+[tcp @ 0x7cf6b3217500] Connection to tcp://201.230.121.186:8000 failed: Connection timed out
+[hls @ 0x7cf6b32b4000] Failed to reload playlist 0
+[mpegts @ 0x7cf6b32b4280] PES packet size mismatch
+[mpegts @ 0x7cf6b32b4280] Packet corrupt (stream = 0, dts = 186408330).
+[hls @ 0x7cf6b32b4000] Packet corrupt (stream = 0, dts = 186408330).
+[in#0/hls @ 0x7cf6b3222300] corrupt input packet in stream 0
+[hls @ 0x7cf6b32b4000] Packet corrupt (stream = 0, dts = 186410490).
+[in#0/hls @ 0x7cf6b3222300] corrupt input packet in stream 0
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/57055270.m3u8' for reading
+[hls @ 0x7cf6b32b4000] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x7cf6b32b4000] skipping 1 segments ahead, expired from playlists
+[hls @ 0x7cf6b32b4000] Opening 'http://201.230.121.186:8000/play/a0fb/188176339_6927.ts' for reading
+frame= 2388 fps= 28 q=26.0 size=N/A time=00:01:19.21 bitrate=N/A speed=0.921x    
+[in#0/hls @ 0x7cf6b3222300] Error during demuxing: Connection timed out
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de2726.ts' for writing
+[hls @ 0x7cf6b32b4500] Opening '/cache/transcodes/293604aba2821610fedf9381e9d7de27.m3u8.tmp' for writing
+[out#0/hls @ 0x7cf6b3281340] video:20630KiB audio:2537KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 2418 fps= 28 q=-1.0 Lsize=N/A time=00:01:19.68 bitrate=N/A speed=0.926x    
+[libx264 @ 0x7cf6b3377f80] frame I:27    Avg QP:21.21  size: 31729
+[libx264 @ 0x7cf6b3377f80] frame P:625   Avg QP:23.44  size: 15318
+[libx264 @ 0x7cf6b3377f80] frame B:1766  Avg QP:26.24  size:  6055
+[libx264 @ 0x7cf6b3377f80] consecutive B-frames:  1.7%  1.1%  5.1% 92.1%
+[libx264 @ 0x7cf6b3377f80] mb I  I16..4: 16.2% 33.6% 50.1%
+[libx264 @ 0x7cf6b3377f80] mb P  I16..4:  4.4% 14.6% 13.3%  P16..4: 48.7%  0.0%  0.0%  0.0%  0.0%    skip:18.9%
+[libx264 @ 0x7cf6b3377f80] mb B  I16..4:  0.9%  1.9%  1.9%  B16..8: 35.8%  0.0%  0.0%  direct:13.5%  skip:46.0%  L0:40.3% L1:42.5% BI:17.2%
+[libx264 @ 0x7cf6b3377f80] 8x8 transform intra:42.9% inter:52.9%
+[libx264 @ 0x7cf6b3377f80] coded y,uvDC,uvAC intra: 72.0% 75.1% 47.0% inter: 19.7% 19.3% 4.4%
+[libx264 @ 0x7cf6b3377f80] i16 v,h,dc,p: 29% 50% 12%  9%
+[libx264 @ 0x7cf6b3377f80] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 20% 18% 15%  7%  7%  9%  7%  8%  9%
+[libx264 @ 0x7cf6b3377f80] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 19% 37% 11%  6%  5%  6%  5%  5%  6%
+[libx264 @ 0x7cf6b3377f80] i8c dc,h,v,p: 32% 30% 25% 13%
+[libx264 @ 0x7cf6b3377f80] Weighted P-Frames: Y:0.3% UV:0.2%
+[libx264 @ 0x7cf6b3377f80] kb/s:2094.62

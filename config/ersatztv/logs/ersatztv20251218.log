@@ -1,0 +1,43 @@
+2025-12-18 10:16:36.523 -05:00 [INF] ErsatzTV version 25.2.0-docker-nvidia
+2025-12-18 10:16:36.593 -05:00 [WRN] Give feedback at https://github.com/ErsatzTV/ErsatzTV or https://discord.gg/hHaJm3yGy6
+2025-12-18 10:16:36.624 -05:00 [INF] Database is at /config/ersatztv.sqlite3
+2025-12-18 10:16:36.649 -05:00 [INF] Transcode folder is /transcode
+2025-12-18 10:16:36.756 -05:00 [INF] Using Lucene (embedded) search index backend
+2025-12-18 10:16:36.897 -05:00 [INF] Server will listen on streaming port 8409, UI port 8409 - try UI at http://localhost:8409
+2025-12-18 10:16:36.906 -05:00 [INF] Applying database migrations
+2025-12-18 10:16:36.930 -05:00 [INF] Worker service started
+2025-12-18 10:16:36.966 -05:00 [INF] FFmpeg worker service started
+2025-12-18 10:16:39.637 -05:00 [INF] Done applying database migrations
+2025-12-18 10:16:39.638 -05:00 [INF] Cleaning database
+2025-12-18 10:16:39.638 -05:00 [INF] Search index worker service started
+2025-12-18 10:16:39.641 -05:00 [INF] Emptying transcode cache folder
+2025-12-18 10:16:39.641 -05:00 [INF] Done emptying transcode cache folder
+2025-12-18 10:16:39.643 -05:00 [INF] Cleaning channel cache
+2025-12-18 10:16:39.731 -05:00 [INF] Located ffmpeg at /usr/local/bin/ffmpeg
+2025-12-18 10:16:39.748 -05:00 [INF] Located ffprobe at /usr/local/bin/ffprobe
+2025-12-18 10:16:39.752 -05:00 [INF] Done cleaning database
+2025-12-18 10:16:39.760 -05:00 [INF] Initializing search index
+2025-12-18 10:16:39.959 -05:00 [WRN] Search index failed to initialize; will delete and recreate
+2025-12-18 10:16:40.038 -05:00 [INF] Done initializing search index
+2025-12-18 10:16:40.038 -05:00 [INF] Migrating search index to version 46
+2025-12-18 10:16:41.171 -05:00 [INF] Done migrating search index in 1 second
+2025-12-18 10:16:41.172 -05:00 [INF] Scheduler service started
+2025-12-18 10:16:41.172 -05:00 [INF] Scanner service started
+2025-12-18 10:16:41.188 -05:00 [INF] Jellyfin service started; secrets are at /config/jellyfin-secrets.json
+2025-12-18 10:16:41.188 -05:00 [INF] Emby service started; secrets are at /config/emby-secrets.json
+2025-12-18 10:16:41.188 -05:00 [INF] Plex service started; secrets are at /config/plex-secrets.json
+2025-12-18 10:16:41.232 -05:00 [INF] Successfully synchronized jellyfin media sources
+2025-12-18 10:16:41.408 -05:00 [ERR] Error getting jellyfin libraries
+Refit.ApiException: Response status code does not indicate success: 503 (Service Unavailable).
+   at Refit.RequestBuilderImplementation.<>c__DisplayClass15_0`2.<<BuildCancellableTaskFuncForMethod>b__0>d.MoveNext() in c:\temp\releaser\refit\Refit\RequestBuilderImplementation.cs:line 384
+--- End of stack trace from previous location ---
+   at Refit.Implementation.Generated.ErsatzTVInfrastructureJellyfinIJellyfinApi.global::ErsatzTV.Infrastructure.Jellyfin.IJellyfinApi.GetLibraries(String apiKey) in /source/ErsatzTV.Infrastructure/obj/release/net9.0/InterfaceStubGeneratorV2/Refit.Generator.InterfaceStubGeneratorV2/IJellyfinApi.g.cs:line 171
+   at ErsatzTV.Infrastructure.Jellyfin.JellyfinApiClient.GetLibraries(String address, String apiKey) in /source/ErsatzTV.Infrastructure/Jellyfin/JellyfinApiClient.cs:line 63
+2025-12-18 10:16:41.421 -05:00 [WRN] Unable to synchronize libraries from jellyfin server canal-en-vivo: Response status code does not indicate success: 503 (Service Unavailable).
+2025-12-18 10:16:41.454 -05:00 [INF] Successfully synchronized Jellyfin libraries for source 2
+2025-12-18 10:16:45.726 -05:00 [ERR] Error getting jellyfin libraries
+Refit.ApiException: Response status code does not indicate success: 503 (Service Unavailable).
+   at Refit.RequestBuilderImplementation.<>c__DisplayClass15_0`2.<<BuildCancellableTaskFuncForMethod>b__0>d.MoveNext() in c:\temp\releaser\refit\Refit\RequestBuilderImplementation.cs:line 384
+--- End of stack trace from previous location ---
+   at Refit.Implementation.Generated.ErsatzTVInfrastructureJellyfinIJellyfinApi.global::ErsatzTV.Infrastructure.Jellyfin.IJellyfinApi.GetLibraries(String apiKey) in /source/ErsatzTV.Infrastructure/obj/release/net9.0/InterfaceStubGeneratorV2/Refit.Generator.InterfaceStubGeneratorV2/IJellyfinApi.g.cs:line 171
+   at ErsatzTV.Infrastructure.Jellyfin.JellyfinApiClient.GetLibraries(String address, String apiKey) in /source/ErsatzTV.Infrastructure/Jellyfin/JellyfinApiClient.cs:line 63

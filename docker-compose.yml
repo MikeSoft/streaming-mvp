@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  # 1. Jellyfin - Media Management
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    networks:
+      - tv-network
+    ports:
+      - "8096:8096"
+    volumes:
+      - ./config/jellyfin:/config
+      - X:\Users\Admin\Videos\Canal:/media
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # 2. ErsatzTV - Scheduling & Playout
+  ersatztv:
+    image: jasongdove/ersatztv:latest-nvidia
+    container_name: ersatztv
+    networks:
+      - tv-network
+    ports:
+      - "8409:8409"
+    volumes:
+      - ./config/ersatztv:/config
+    environment:
+      - TZ=America/Bogota
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # 3. Restreamer - Master Control / Mixer
+  restreamer:
+    image: datarhei/restreamer:latest
+    container_name: restreamer
+    networks:
+      - tv-network
+    ports:
+      - "8080:8080"
+      - "1935:1935"
+    volumes:
+      - ./config/restreamer:/core/config
+      - ./config/restreamer/data:/core/data
+    environment:
+      - RS_USERNAME=admin
+      - RS_PASSWORD=admin
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # 4. Owncast - Public Distribution
+  owncast:
+    image: owncast/owncast:latest
+    container_name: owncast
+    networks:
+      - tv-network
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./config/owncast:/data
+    restart: unless-stopped
+
+  # 5. Nginx Proxy Manager - The Gateway
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: npm
+    networks:
+      - tv-network
+    ports:
+      - '80:80'      # HTTP Public
+      - '81:81'      # Admin UI
+      - '443:443'    # HTTPS Public
+    volumes:
+      - ./config/npm/data:/data
+      - ./config/npm/letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
+
+networks:
+  tv-network:
+    driver: bridge
