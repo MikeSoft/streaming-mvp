@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # 1. Jellyfin - Media Management
+  # 1. Jellyfin - Gestión de Medios
   jellyfin:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
@@ -11,7 +11,7 @@ services:
       - "8096:8096"
     volumes:
       - ./config/jellyfin:/config
-      - X:\Users\Admin\Videos\Canal:/media
+      - ./media:/media:ro # 'ro' para que el contenedor solo lea y no borre por error
     restart: unless-stopped
     deploy:
       resources:
@@ -21,7 +21,7 @@ services:
               count: 1
               capabilities: [gpu]
 
-  # 2. ErsatzTV - Scheduling & Playout
+  # 2. ErsatzTV - Programación de canales "Live"
   ersatztv:
     image: jasongdove/ersatztv:latest-nvidia
     container_name: ersatztv
@@ -31,6 +31,7 @@ services:
       - "8409:8409"
     volumes:
       - ./config/ersatztv:/config
+      - ./media:/media:ro # ErsatzTV necesita ver los archivos para generar el streaming
     environment:
       - TZ=America/Bogota
     restart: unless-stopped
@@ -42,7 +43,7 @@ services:
               count: 1
               capabilities: [gpu]
 
-  # 3. Restreamer - Master Control / Mixer
+  # 3. Restreamer - Control Maestro
   restreamer:
     image: datarhei/restreamer:latest
     container_name: restreamer
@@ -66,7 +67,7 @@ services:
               count: 1
               capabilities: [gpu]
 
-  # 4. Owncast - Public Distribution
+  # 4. Owncast - Distribución Pública (Tu propio "Twitch")
   owncast:
     image: owncast/owncast:latest
     container_name: owncast
@@ -78,16 +79,16 @@ services:
       - ./config/owncast:/data
     restart: unless-stopped
 
-  # 5. Nginx Proxy Manager - The Gateway
+  # 5. Nginx Proxy Manager - El Gateway (SSL y Dominios)
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: npm
     networks:
       - tv-network
     ports:
-      - '80:80'      # HTTP Public
-      - '81:81'      # Admin UI
-      - '443:443'    # HTTPS Public
+      - '80:80'
+      - '81:81'
+      - '443:443'
     volumes:
       - ./config/npm/data:/data
       - ./config/npm/letsencrypt:/etc/letsencrypt
